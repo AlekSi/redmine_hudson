@@ -1,6 +1,6 @@
 # $Id$
 # Russian strings go here
-en:
+ru:
   label_hudson: Hudson
   label_hudson_plural: Hudson
   label_build: Cборка
