@@ -27,7 +27,6 @@ class HudsonSettings < ActiveRecord::Base
   end
 
   def url_for(type)
-    return self.url_for_plugin if type == :plugin and self.url_for_plugin and self.url_for_plugin.length > 0
     return self.url
   end
 
