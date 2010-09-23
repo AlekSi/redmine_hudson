@@ -7,7 +7,7 @@ require 'hudson_exceptions'
 class HudsonJob < ActiveRecord::Base
   unloadable
   has_many :health_reports, :class_name => 'HudsonHealthReport', :dependent => :destroy
-  has_many :builds, :dependent => :destroy
+  has_many :builds, :class_name => 'HudsonBuild', :dependent => :destroy
   has_one :job_settings, :class_name => 'HudsonJobSettings', :dependent => :destroy
   belongs_to :project, :foreign_key => 'project_id'
   belongs_to :settings, :class_name => 'HudsonSettings', :foreign_key => 'hudson_id'

@@ -8,7 +8,7 @@ class HudsonSettingsTest < ActiveSupport::TestCase
 
   def test_url_for_should_return_zero_length_string
 
-    name_nil_job = HudsonJob.new # settings がない
+    name_nil_job = HudsonJob.new
     name_zero_length_job = HudsonJob.new(:name => "")
     [:for_user, :for_plugin].each do |type|
       assert_equal "", name_nil_job.url_for(type)
