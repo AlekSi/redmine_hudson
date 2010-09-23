@@ -1,6 +1,4 @@
-# $Id$
 require File.dirname(__FILE__) + '/../test_helper'
-require File.dirname(__FILE__) + '/../../../../../app/models/setting'
 require 'uri'
 require 'net/http'
 require 'mocha'

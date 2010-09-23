@@ -1,8 +1,11 @@
-# $Id$
-require 'dispatcher'
 require 'redmine'
+require 'dispatcher'
 require 'hudson_application_hooks'
 require 'query_patch'
+
+Dispatcher.to_prepare :redmine_hudson do
+  require_dependency 'setting'
+end
 
 Redmine::Plugin.register :redmine_hudson do
   name 'Redmine Hudson plugin'
@@ -13,7 +16,6 @@ Redmine::Plugin.register :redmine_hudson do
   requires_redmine :version_or_higher => '0.8.0'
 
   project_module :hudson do
-    # パーミッション設定。
     permission :view_hudson, {:hudson => [:index, :history]}
     permission :build_hudson, {:hudson => [:build]}, :require => :member
     permission :edit_hudson_settings, {:hudson_settings => [:edit, :joblist, :delete_builds, :delete_history]}, :require => :member
@@ -49,4 +51,3 @@ end
 Dispatcher.to_prepare do
   Query.send( :include, RedmineHudson::RedmineExt::QueryPatch)
 end
-
