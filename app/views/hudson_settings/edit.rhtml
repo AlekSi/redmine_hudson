@@ -25,28 +25,6 @@
   </p>
 </div>
 
-<fieldset class="box"><legend><%=l(:label_health_report)%></legend>
-  <%=l(:notice_health_report)%>
-  <div id="health_report_fields" style="margin-left:10px;">
-  <% @hudson.settings.health_report_settings.each do |hrs| -%>
-    <% next if hrs.new_record? -%>
-    <%=render :partial => 'health_report_setting', :locals => {:field_name => "health_report_settings[]", :hrs => hrs}  %>
-  <% end -%>
-  <% new_hrs_count = 0 -%>
-  <%  @hudson.settings.health_report_settings.each do |hrs| -%>
-    <% next unless hrs.new_record? -%>
-    <% new_hrs_count += 1 -%>
-    <%=render :partial => 'health_report_setting', :locals => {:field_name => "new_health_report_settings[#{new_hrs_count}]", :hrs => hrs}  %>
-  <% end -%>
-  </div>
-  <span style="font-size:smaller;"><%= link_to l(:label_add_health_report), '#', :onclick => 'appender.add(); return false;' %></span>
-  <script type="text/javascript">
-  //<!--
-  var appender = new HealthReportFieldAppender('<%=l(:notice_health_report_setting)%>', <%=new_hrs_count%>);
-  //-->
-  </script>
-</fieldset>
-
 <h3><%=l(:label_jobs)%></h3>
 
   <%=render :partial => 'joblist'%>
