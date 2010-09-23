@@ -29,13 +29,14 @@ def HudsonBuildRotator.can_store?(job, number)
 
   cond = HudsonBuildRotator.create_cond_to_delete(job_settings)
 
+  # FIXME: hack for MySQL
+  cond = true
+
   # get oldest data
-  oldest = HudsonBuild.find(:first,
-                            :conditions => ["#{HudsonBuild.table_name}.hudson_job_id = ? and #{HudsonBuild.table_name}.id not in (select #{HudsonBuild.table_name}.id from #{HudsonBuild.table_name} where #{cond})", job.id],
-                            :order => "#{HudsonBuild.table_name}.number")
-
+  oldest = HudsonBuild.find(:all, :conditions => ["#{HudsonBuild.table_name}.hudson_job_id = ? and #{HudsonBuild.table_name}.id not in (select #{HudsonBuild.table_name}.id from #{HudsonBuild.table_name} where #{cond})", job.id],
+                            :order => "#{HudsonBuild.table_name}.number").first
+  return true if oldest.nil?
   return number.to_i >= oldest.number.to_i
-
 end
 
 def HudsonBuildRotator.create_cond_to_delete(job_settings)
