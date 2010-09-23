@@ -1,57 +1,41 @@
 require File.dirname(__FILE__) + '/../test_helper'
 require 'uri'
 require 'net/http'
-require 'mocha'
 
 class HudsonTest < ActiveSupport::TestCase
   fixtures :projects, :repositories, :hudson_settings, :hudson_settings_health_reports, :hudson_jobs, :hudson_builds
   set_fixture_class :hudson_settings => HudsonSettings
 
   def test_project_should_be_eCookbook
-
     data_settings = hudson_settings(:one)
     hudson = Hudson.find(data_settings.project_id)
-
     data_project = projects(:projects_001)
-
     assert_equal data_project.name, hudson.project.name
-
   end
 
   def test_get_job_should_hudson_no_job
-
     data_settings = hudson_settings(:one)
     hudson = Hudson.find(data_settings.project_id)
-
     job = hudson.get_job(nil)
-
     assert job.is_a?(HudsonNoJob)
-
   end
 
   def test_hudson_api_errors_should_be_empty
-
     data_settings = hudson_settings(:one)
     hudson = Hudson.find(data_settings.project_id)
-
-    assert_equal true, hudson.hudson_api_errors.empty?
-
+    assert hudson.hudson_api_errors.empty?
   end
 
   def test_hudson_api_errors_should_has_hudson_error
-
     data_settings = hudson_settings(:one)
     hudson = Hudson.find(data_settings.project_id)
-
     hudson.fetch
-
     assert_equal 1, hudson.hudson_api_errors.length
     error = hudson.hudson_api_errors[0]
     assert error.is_a?(HudsonApiError)
     assert_equal "Hudson", error.class_name
     assert_equal "fetch", error.method_name
     assert error.exception.is_a?(HudsonApiException)
-
   end
 
   def test_hudson_api_errors_should_has_job_error
@@ -133,7 +117,7 @@ class HudsonTest < ActiveSupport::TestCase
 
     assert_equal 2, job.health_reports.length
     healthreport = job.health_reports[0]
-    assert_equal "安定したビルド: 最近の5個中、2個ビルドに失敗しました。", healthreport.description
+
     assert_equal 59, healthreport.score
 
     healthreport = job.health_reports[1]

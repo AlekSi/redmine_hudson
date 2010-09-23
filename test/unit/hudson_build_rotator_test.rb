@@ -40,7 +40,6 @@ class HudsonBuildRotatorTest < ActiveSupport::TestCase
       count += 1 if build.number.to_i >= 11 && build.finished_at >= DateTime.new(2010,1,30,0,0,0)
     end
     assert_equal 10, count
-
   end
 
   def test_execute_enable_num_to_keep
@@ -97,11 +96,9 @@ class HudsonBuildRotatorTest < ActiveSupport::TestCase
       count += 1 if build.finished_at >= DateTime.new(2010,1,29,0,0,0)
     end
     assert_equal 20, count
-
   end
 
   def test_self_can_store_should_return_false
-
     data_job = hudson_jobs(:simple_ruby_application)
     job = HudsonJob.find(data_job.id, :include => HudsonJobSettings)
 
@@ -123,7 +120,6 @@ class HudsonBuildRotatorTest < ActiveSupport::TestCase
     assert_equal false, HudsonBuildRotator.can_store?(job, "1")
     assert_equal false, HudsonBuildRotator.can_store?(job, 20)
     assert_equal false, HudsonBuildRotator.can_store?(job, "20")
-
   end
 
   def test_self_can_store_should_return_true

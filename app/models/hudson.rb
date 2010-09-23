@@ -1,8 +1,7 @@
-# $Id$
-
 require 'hudson_api_error'
 require 'hudson_exceptions'
 
+# Common methods.
 class Hudson
   unloadable
 
@@ -18,7 +17,7 @@ class Hudson
     return "#{@settings.url_for(type)}api"
   end
 
-def initialize(project_id)
+  def initialize(project_id)
     @project_id = project_id
     @project = Project.find(project_id)
     @settings = HudsonSettings.find_by_project_id(@project_id)
@@ -42,9 +41,9 @@ def initialize(project_id)
   end
 
   def get_job(job_name)
-      job = self.jobs.find{|job| job.name == job_name }
-      return HudsonNoJob.new(:name => job_name, :settings => @settings) unless job
-      return job
+    job = self.jobs.find{|job| job.name == job_name }
+    return HudsonNoJob.new(:name => job_name, :settings => @settings) unless job
+    return job
   end
 
   def add_job(job_name)
@@ -115,62 +114,63 @@ private
                            :include => :job_settings
   end
 
-end
-
-def Hudson.find(*args)
-  case args.first
-    when :all   then
-      retval = []
-      HudsonSettings.find(*args).each do |settings|
-        next unless Project.find_by_id(settings.project_id)
-        retval << Hudson.new(settings.project_id)
+  class << self
+    def find(*args)
+      case args.first
+        when :all
+          retval = []
+          HudsonSettings.find(*args).each do |settings|
+            next unless Project.find_by_id(settings.project_id)
+            retval << Hudson.new(settings.project_id)
+          end
+          return retval
+        else
+          settings = HudsonSettings.find(*args)
+          return nil unless Project.find_by_id(settings.project_id)
+          retval = Hudson.new(settings.project_id)
+          return retval
       end
-      return retval
-    else
-      settings = HudsonSettings.find(*args)
-      return nil unless Project.find_by_id(settings.project_id)
-      retval = Hudson.new(settings.project_id)
-      return retval
-  end
-end
+    end
 
-def Hudson.find_by_project_id(project_id)
-  retval = Hudson.new(project_id)
-  return retval
-end
+    def find_by_project_id(project_id)
+      retval = Hudson.new(project_id)
+      return retval
+    end
 
-def Hudson.fetch
-  hudsons = find(:all)
-  hudsons.each do |hudson|
-    hudson.fetch
-    next if hudson.hudson_api_errors.empty?
-    hudson.hudson_api_errors.each do |error|
-      $stderr.print "redmine_hudson: #{hudson.project.name}(#{hudson.settings.url_for(:plugin)}) #{error.class_name}:#{error.method_name} #{error.exception.message}\n"
+    def fetch
+      hudsons = find(:all)
+      hudsons.each do |hudson|
+        hudson.fetch
+        next if hudson.hudson_api_errors.empty?
+        hudson.hudson_api_errors.each do |error|
+          $stderr.print "redmine_hudson: #{hudson.project.name}(#{hudson.settings.url_for(:plugin)}) #{error.class_name}:#{error.method_name} #{error.exception.message}\n"
+        end
+      end
+    end
+
+    def autofetch?
+      return false unless Setting.plugin_redmine_hudson['autofetch']
+      return false if Setting.plugin_redmine_hudson['autofetch'] == ""
+      return true
+    end
+
+    def job_description_format
+      return "hudson" unless Setting.plugin_redmine_hudson['job_description_format']
+      return "hudson" if Setting.plugin_redmine_hudson['job_description_format'] == ""
+      return Setting.plugin_redmine_hudson['job_description_format']
+    end
+
+    def query_limit_builds_each_job
+      return 100 unless Setting.plugin_redmine_hudson['query_limit_builds_each_job']
+      return 100 if Setting.plugin_redmine_hudson['query_limit_builds_each_job'] !~ /^[0-9]+$/
+      return Setting.plugin_redmine_hudson['query_limit_builds_each_job'].to_i
+    end
+
+    def query_limit_changesets_each_job
+      return 100 unless Setting.plugin_redmine_hudson['query_limit_changesets_each_job']
+      return 100 if Setting.plugin_redmine_hudson['query_limit_changesets_each_job'] !~ /^[0-9]+$/
+      return Setting.plugin_redmine_hudson['query_limit_changesets_each_job'].to_i
     end
   end
-end
 
-def Hudson.autofetch?
-  return false unless Setting.plugin_redmine_hudson['autofetch']
-  return false if Setting.plugin_redmine_hudson['autofetch'] == ""
-  return true
 end
-
-def Hudson.job_description_format
-  return "hudson" unless Setting.plugin_redmine_hudson['job_description_format']
-  return "hudson" if Setting.plugin_redmine_hudson['job_description_format'] == ""
-  return Setting.plugin_redmine_hudson['job_description_format']
-end
-
-def Hudson.query_limit_builds_each_job
-  return 100 unless Setting.plugin_redmine_hudson['query_limit_builds_each_job']
-  return 100 if Setting.plugin_redmine_hudson['query_limit_builds_each_job'] !~ /^[0-9]+$/
-  return Setting.plugin_redmine_hudson['query_limit_builds_each_job'].to_i
-end
-
-def Hudson.query_limit_changesets_each_job
-  return 100 unless Setting.plugin_redmine_hudson['query_limit_changesets_each_job']
-  return 100 if Setting.plugin_redmine_hudson['query_limit_changesets_each_job'] !~ /^[0-9]+$/
-  return Setting.plugin_redmine_hudson['query_limit_changesets_each_job'].to_i
-end
-

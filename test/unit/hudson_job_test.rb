@@ -33,7 +33,6 @@ class HudsonSettingsTest < ActiveSupport::TestCase
     job = HudsonJob.find(data.id)
 
     assert_equal "#{settings.url}job/#{data.name}", job.url_for(:user)
-    assert_equal "#{settings.url_for_plugin}job/#{data.name}", job.url_for(:plugin)
 
   end
 
@@ -82,7 +81,7 @@ class HudsonSettingsTest < ActiveSupport::TestCase
 
     data = hudson_jobs(:simple_ruby_application)
     job = HudsonJob.find(data.id)
-    job.expects(:open_hudson_api).with("http://noauth.onejob.nohealthreport.local:19090/job/simple-ruby-application/build", nil, nil)
+    job.expects(:open_hudson_api).with("http://noauth.onejob.nohealthreport.local:9090/job/simple-ruby-application/build", nil, nil)
 
     job.request_build
   end

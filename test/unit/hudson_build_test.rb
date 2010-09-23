@@ -22,7 +22,6 @@ class HudsonBuildTest < ActiveSupport::TestCase
     build.job = job
     build.number = 10
     assert_equal "http://noauth.onejob.nohealthreport.local:9090/job/test-job/10", build.url_for(:user)
-    assert_equal "http://noauth.onejob.nohealthreport.local:19090/job/test-job/10", build.url_for(:plugin)
   end
 
   def test_event_url_should_return_zero_length_string
