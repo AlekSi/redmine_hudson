@@ -87,7 +87,7 @@ private
 
       job = self.get_job(job_name)
       job = add_job(job_name) if job.is_a?(HudsonNoJob)
-      
+
       job.update_by_xml(element)
       job.update_health_report_by_xml(element)
       job.save!
@@ -96,7 +96,7 @@ private
   end
 
   def fetch_buildresults
-    
+
     self.jobs.each do |job|
       next unless self.settings.job_include?(job.name)
 

@@ -9,7 +9,7 @@ class HudsonSettingsHealthReportTest < ActiveSupport::TestCase
   def test_containd_in_should_be_true
     data = hudson_settings_health_reports(:two_build_stablity)
     target = HudsonSettingsHealthReport.find(data.id)
-    
+
     assert_equal true, target.contained_in?("test message #{data.keyword} --" )
   end
 

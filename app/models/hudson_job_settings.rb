@@ -56,5 +56,5 @@ class HudsonJobSettings < ActiveRecord::Base
     self.build_rotator_num_to_keep = num_to_keep.to_i if num_to_keep =~ /^[+-]?\d+$/
 
   end
-  
+
 end

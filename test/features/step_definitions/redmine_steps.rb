@@ -16,7 +16,7 @@ Given /^I log on as a User$/ do
   @current_user = User.new(:mail => 'couger-test@example.com', :firstname => 'Couger', :lastname => 'Test')
   @current_user.login = "couger_test"
   @current_user.save!
-  
+
   User.stubs(:current).returns(@current_user)
 end
 

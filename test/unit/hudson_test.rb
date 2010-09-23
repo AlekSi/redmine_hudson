@@ -10,25 +10,25 @@ class HudsonTest < ActiveSupport::TestCase
   set_fixture_class :hudson_settings => HudsonSettings
 
   def test_project_should_be_eCookbook
-    
+
     data_settings = hudson_settings(:one)
     hudson = Hudson.find(data_settings.project_id)
 
     data_project = projects(:projects_001)
 
     assert_equal data_project.name, hudson.project.name
-    
+
   end
 
   def test_get_job_should_hudson_no_job
-    
+
     data_settings = hudson_settings(:one)
     hudson = Hudson.find(data_settings.project_id)
-    
+
     job = hudson.get_job(nil)
-    
+
     assert job.is_a?(HudsonNoJob)
-    
+
   end
 
   def test_hudson_api_errors_should_be_empty
@@ -145,7 +145,7 @@ class HudsonTest < ActiveSupport::TestCase
     build = job.get_build("1")
     assert_equal "FAILURE", build.result
     assert_equal false, build.building?
-    
+
     changesets = build.changesets
     assert_equal 2, changesets.length
     assert_equal "16", changesets[0].revision
@@ -302,7 +302,7 @@ class HudsonTest < ActiveSupport::TestCase
     items = Hudson.find(:all)
 
     assert_equal items.length, 5
-    
+
     data_settings = hudson_settings(:one)
     detect_one = items.detect {|item| item.settings.url == data_settings.url}
     assert_equal data_settings.id, detect_one.settings.id

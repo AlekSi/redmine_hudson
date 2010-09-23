@@ -77,7 +77,7 @@ class HudsonApiExceptionTest < ActiveSupport::TestCase
 
     assert_equal l(:notice_err_unknown, error.message), target.message
     assert_equal error, target.inner_exception
-    
+
   end
 
 end

@@ -134,7 +134,7 @@ class HudsonJob < ActiveRecord::Base
 
   def fetch_builds
     clear_hudson_api_errors
-    
+
     return unless do_fetch?
 
     fetch_summary unless self.settings.get_build_details
@@ -219,7 +219,7 @@ private
       if build.is_a?(HudsonNoBuild)
         build = new_build
       end
-      
+
       build.update_by_api(buildelem)
       build.save
 
@@ -233,14 +233,14 @@ private
       build.add_artifact_from_xml buildelem
 
     end
-    
+
   end
 
   def do_fetch?
     latest_build = get_build(self.latest_build_number)
     return true if latest_build.is_a? HudsonNoBuild
     return true if latest_build.building?
-    
+
     return false
   end
 

@@ -63,7 +63,7 @@ Given /^Hudson API returns "(.*)" as depth0/ do |hudson_job_name|
   @response_jobs = Net::HTTPSuccess.new(Net::HTTP.version_1_2, '200', 'OK')
   @response_jobs.stubs(:content_type).returns("text/html")
   @response_jobs.stubs(:body).returns(get_response(:hudson_1_fetch_job))
-  
+
   Net::HTTP.any_instance.stubs(:request).returns(@response_jobs)
 end
 

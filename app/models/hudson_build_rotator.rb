@@ -3,7 +3,7 @@
 
 class HudsonBuildRotator
   unloadable
-  
+
   def initialize(job_settings)
     raise ArgumentError.new("arg job_settings is nil") unless job_settings
     raise ArgumentError.new("arg job_settings should be HudsonJobSetting") unless job_settings.is_a?(HudsonJobSettings)

@@ -10,7 +10,7 @@ When /^I add health report settings - Keyword "(.*)" and URLFormat "(.*)"$/ do |
   doc = webrat.dom
 
   hudson_settings = HudsonSettings.find(:first) # テスト中は現在のもの以外に設定がないと判断
-  
+
   form = doc.search("//form[@id=\"new_hudson_settings\"]")[0] unless hudson_settings
   form = doc.search("//form[@id=\"edit_hudson_settings_#{hudson_settings.id}\"]")[0] if hudson_settings
 

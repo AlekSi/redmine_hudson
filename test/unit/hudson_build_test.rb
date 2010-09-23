@@ -83,7 +83,7 @@ class HudsonBuildTest < ActiveSupport::TestCase
     assert_equal "FAILURE", build.result
     assert_equal Time.xmlschema("2009-07-19T10:35:15Z").localtime, build.finished_at
     assert_equal true, build.building?
-    
+
   end
 
   def test_update_by_rss_should_update_if_number_is_nil
@@ -102,7 +102,7 @@ class HudsonBuildTest < ActiveSupport::TestCase
     assert_equal "SUCCESS", build.result
     assert_equal Time.xmlschema("2009-07-19T11:35:15Z").localtime, build.finished_at
     assert_equal false, build.building?
-    
+
   end
 
   def test_update_by_rss_should_update_if_number_is_same
@@ -161,7 +161,7 @@ class HudsonBuildTest < ActiveSupport::TestCase
     rss << "<updated>2009-07-19T11:35:15Z</updated>"
     rss << "</entry>"
     doc = REXML::Document.new rss
-    
+
     buildinfo = HudsonBuild.parse_rss(doc.elements["//entry"])
 
     assert_equal "simple-ruby-application", buildinfo[:name]

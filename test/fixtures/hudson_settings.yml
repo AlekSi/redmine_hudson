@@ -8,7 +8,7 @@ one:
   job_filter: simple-ruby-application
   show_compact: false
   auth_user:
-  auth_password: 
+  auth_password:
   get_build_details: true
   look_and_feel: hudson
 

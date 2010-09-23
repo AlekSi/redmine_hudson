@@ -10,7 +10,7 @@ class HudsonHealthReportTest < ActiveSupport::TestCase
     target = HudsonHealthReport.new
 
     assert_equal "", target.get_health_report_url(nil)
-    
+
     job_data = hudson_jobs(:have_white_space)
     job = HudsonJob.find(job_data.id)
 
@@ -35,7 +35,7 @@ class HudsonHealthReportTest < ActiveSupport::TestCase
     target = HudsonHealthReport.new
     target.job =job
     target.update_by_xml(doc.elements["//healthReport"])
-    
+
     assert_equal "Build stability: 最近の5個中、2個ビルドに失敗しました。", target.description
     assert_equal 59, target.score
     assert_equal URI.escape("#{job.settings.url}job/#{job.name}/lastBuild/"), target.url

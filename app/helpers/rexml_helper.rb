@@ -3,7 +3,7 @@
 # and open the template in the editor.
 
 module RexmlHelper
-    
+
   def get_element_value(element, name)
     return "" if element == nil
     return "" if element.get_text(name) == nil

@@ -19,7 +19,7 @@ class HudsonBuild < ActiveRecord::Base
   # 重複を許さないもの
   validates_uniqueness_of :number, :scope => :hudson_job_id
 
-  acts_as_event :title => Proc.new {|o| 
+  acts_as_event :title => Proc.new {|o|
                                   retval = "#{l(:label_build)} #{o.job.name} #{o.number}: #{o.result}" unless o.building?
                                   retval = "#{l(:label_build)} #{o.job.name} #{o.number}: #{l(:notice_building)}" if o.building?
                                   retval

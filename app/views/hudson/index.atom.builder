@@ -2,7 +2,7 @@ atom_feed(:language => User.current.language,
           :root_url => @site_url,
           :url      => @atom_url,
           :id       => @site_url) do |feed|
-  f_title = "#{@project || Setting.app_title}: #{l(:label_hudson_plural)}"        
+  f_title = "#{@project || Setting.app_title}: #{l(:label_hudson_plural)}"
   feed.title    truncate_single_line(f_title, :length => 100)
   feed.subtitle @site_description
   feed.updated  Time.now
@@ -22,7 +22,7 @@ atom_feed(:language => User.current.language,
     title = "#{job.name}"
     title += " ##{job.latest_build_number} (#{job.latest_build.result})" if job.latest_build_number
     title += " (#{l(:notice_no_builds)})" unless job.latest_build_number
-    content = generate_atom_content(job) 
+    content = generate_atom_content(job)
     feed.entry(job,
                  :url       => job.url_for(:user),
                  :id        => job.id,

@@ -144,7 +144,7 @@ module RedmineHudson
         sql << "    and   #{Changeset.table_name}.revision in (#{value_revisions})"
         sql << " )"
         sql << ")"
-        
+
         return sql
       end
 

@@ -8,7 +8,7 @@ Redmie を Hudson と連携させるためのプラグインです。
 継続ビルドのためのアプリケーションです。
 簡単インストール、設定、親切なUIが特徴です。（他にも良い点は沢山ありますよ！）
 詳しくは {Meet Hudson}[http://wiki.hudson-ci.org/display/HUDSON/Meet+Hudson]
-作者の川口さんが書かれた紹介記事もあります。 
+作者の川口さんが書かれた紹介記事もあります。
 
 * {Hudsonを使ったアジャイルな開発入門}[http://gihyo.jp/dev/feature/01/hudson/0001]
 

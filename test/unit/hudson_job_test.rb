@@ -29,7 +29,7 @@ class HudsonSettingsTest < ActiveSupport::TestCase
   def test_url_to
     data = hudson_jobs(:simple_ruby_application)
     settings = hudson_settings(:one)
-    
+
     job = HudsonJob.find(data.id)
 
     assert_equal "#{settings.url}job/#{data.name}", job.url_for(:user)
@@ -62,7 +62,7 @@ class HudsonSettingsTest < ActiveSupport::TestCase
     assert_equal "HudsonJob", error.class_name
     assert_equal "fetch_builds 'simple-ruby-application'", error.method_name
     assert error.exception.is_a?(HudsonApiException)
-    
+
   end
 
   def test_get_build

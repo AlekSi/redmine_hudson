@@ -39,10 +39,10 @@ module HudsonHelper
 
   def is_today?(value)
     return false unless value
-    
+
     value_time = Time.parse(value.to_s, 0) rescue nil
     return false unless value_time
- 
+
     today = Time.now
     return today.strftime("%Y/%m/%d") == value_time.strftime("%Y/%m/%d")
   end
@@ -61,13 +61,13 @@ module HudsonHelper
       retval.use_ssl = true
       retval.verify_mode = OpenSSL::SSL::VERIFY_NONE
     end
-    
+
     return retval
 
   end
 
   def create_http_request(uri, auth_user, auth_password)
-    
+
     param = URI.parse( URI.escape(uri) )
 
     getpath = param.path
@@ -79,38 +79,38 @@ module HudsonHelper
     return retval
 
   end
-  
+
   def generate_atom_content(job)
     tag = ""
     tag = job.latest_build.error if "" != job.latest_build.error
     if "" == job.latest_build.error
-    
+
       icon = "#{job.state}.gif"
       icon = "grey.gif" if job.state == "disabled"
 
       tag << image_tag("#{job.settings.url}images/24x24/#{icon}")
       tag << " "
-    
+
       if "" != job.latest_build.number
         tag << link_to("##{job.latest_build.number}",job.latest_build.url_for(:user))
         tag << " "
-        tag << content_tag("span", job.latest_build.result, 
+        tag << content_tag("span", job.latest_build.result,
                :class => "result #{job.latest_build.result.downcase}") if true != job.latest_build.building? && "" != job.latest_build.result
-        tag " " 
+        tag " "
         tag << content_tag("span", l(:notice_building), :class => "result") if job.latest_build.building?
         tag << " "
         tag << content_tag("span", job.latest_build.finished_at.localtime.strftime("%Y/%m/%d %H:%M:%S"))
       end
       tag << l(:notice_no_builds) if "" == job.latest_build.number
-    end    
-  
+    end
+
     tag << "<ul class=\"job-health-reports\">"
     job.health_reports.each do |report|
       tag << "<li>#{link_to(report.description, report.url)} #{report.score}" if report.url != ""
       tag << "<li>#{report.description} #{report.score}%" if report.url == ""
     end
     tag << "</ul>"
-    return tag  
+    return tag
   end
 
 end

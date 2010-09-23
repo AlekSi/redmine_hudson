@@ -6,5 +6,5 @@ class HudsonNoBuildTest < ActiveSupport::TestCase
     target = HudsonNoBuild.new
     assert_equal false, target.building?
   end
-  
+
 end
