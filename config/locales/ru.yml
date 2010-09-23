@@ -17,21 +17,21 @@ ru:
   label_health_report_build_stability: Стабильность сборок
   label_health_report_test_result: Результаты тестов
   label_database: База данных
-  label_get_build_details: Детали сборки
+  label_get_build_details: Загружать детали сборки
   label_look_and_feel: Иконки
   label_look_and_feel_hudson: Hudson
   label_look_and_feel_plugin: Оригинальные
   label_add_health_report: Добавить настройку отчёта
   label_health_report: Отчёт
   label_health_report_settings: Настройки отчёта
-  label_autofetch: Автозагрузка
+  label_autofetch: Автозагрузка данных
   label_job_description_format: Формат описания
   label_show_description: Показать описание
   label_hide_description: Скрыть описание
   label_todays_build: Текущая сборка
   label_build_artifacts: Артифакты
-  label_num_of_stored_builds: Количество сборок
-  label_delete_old_build: Удалить старые сборки
+  label_num_of_stored_builds: Количество хранимых сборок
+  label_delete_old_build: Удалять старые сборки
   label_log_rotator_days_to_keep: хранить (дней)
   label_log_rotator_num_to_keep: хранить (штук)
   label_query_limit_builds_each_job: Максимальное количество сборок для поиска
@@ -47,24 +47,24 @@ ru:
   notice_no_builds: Нет сборок
 
   notice_building: Идёт сборка…
-  notice_hudson_url: 'with http://, https:// ...'
-  notice_get_build_details: Take the checkmark off, if take a lot of time.
-  notice_health_report: Provide a link to Hudson, if plugin find keyword in Health Report.
+  notice_hudson_url: "начиная с http:// или https://"
+  notice_get_build_details: "Снимите галочку, если загрузка занимает много времени."
+  notice_health_report: "Provide a link to Hudson, if plugin find keyword in Health Report."
   notice_health_report_setting: 'If plugin find keyword - ${keyword} in HealthReport, Provide a link to Hudson - ${url_format}'
-  notice_autofetch: Fetch information from Hudson during action 'index'. <br> You can call rake-task "redmine_hudson:fetch" by an external script.
+  notice_autofetch: Загружать данные из Hudson'а при генерации страницы
 
-  notice_err_cant_connect: "Can't Connect Hudson {{value}}"
-  notice_err_response_invalid: 'Response Invalid {{value}}'
-  notice_err_http_error: 'Http Error {{value}}'
-  notice_err_no_settings: "No settings for this project. Please <a href='{{value}}'>confirm settings</a>"
-  notice_err_no_jobs: Hudson has no job
-  notice_err_invalid_url: Invalid URL
-  notice_err_no_job : 'job not found [{{value}}]'
-  notice_err_unknown: 'Unknown Error {{value}}'
+  notice_err_cant_connect: "Ошибка подключения к Hudson: {{value}}"
+  notice_err_response_invalid: "Неверный ответ Hudson'а: {{value}}"
+  notice_err_http_error: "Ошибка HTTP: {{value}}"
+  notice_err_no_settings: "Для проекта не указаны <a href='{{value}}'>настроки</a>."
+  notice_err_no_jobs: Нет задач.
+  notice_err_invalid_url: Неверный URL
+  notice_err_no_job : "Задача не найдена: {{value}}"
+  notice_err_unknown: "Неизвестная ошибка: {{value}}"
 
-  notice_err_build_failed: 'Build failed {{value}}'
-  notice_err_build_failed_no_job: 'Build failed. Job not found [{{value}}]'
+  notice_err_build_failed: "Сборка завершилась неудачно: {{value}}"
+  notice_err_build_failed_no_job: "Сборка завершилась неудачно – задача не найдена: {{value}}"
 
-  permission_view_hudson: View Hudson
-  permission_build_hudson: Build Hudson
-  permission_edit_hudson_settings: Edit Hudson settings
+  permission_view_hudson: Просмотр
+  permission_build_hudson: Инициация сборки
+  permission_edit_hudson_settings: Изменение настроек
