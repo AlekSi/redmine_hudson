@@ -1,35 +1,59 @@
-<%# $Id$
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
-%>
-
 <h2><%=l(:label_settings)%></h2>
 
 <%= error_messages_for 'settings' %>
 
 <% @settings = @hudson.settings %>
 <% form_for @settings, :url => {:action => 'edit', :id => @project}, :html => {:method=>:put} do |setting_form| %>
-<div class="box tabular">
-  <p><label><%=l(:label_url)%></label>
-     <%=text_field :settings, :url, :size=>50%> <%=l(:notice_hudson_url)%><br/>
-  </p>
-  <p><label><%=l(:field_user)%></label>
-     <%=text_field :settings, :auth_user, :size=>20 %></p>
-  <p><label><%=l(:field_password)%></label>
-     <%=password_field :settings, :auth_password, :size=>20%></p>
-  <p><label><%=l(:label_get_build_details)%></label><%=check_box :settings, :get_build_details, {}, 'true'%> <%=l(:notice_get_build_details)%></p>
-  <p><label><%=l(:label_show_compact)%></label><%=check_box :settings, :show_compact, {}, 'true'%></p>
-  <p><label><%=l(:label_look_and_feel)%></label>
-     <%=radio_button :settings, :look_and_feel, 'Hudson'%> <%=l(:label_look_and_feel_hudson)%><br>
-     <%=radio_button :settings,:look_and_feel,  'Plugin'%> <%=l(:label_look_and_feel_plugin)%>
-  </p>
-</div>
+  <div class="box tabular">
+    <p>
+       <label>
+         <%=l(:label_url)%>
+       </label>
+       <%=text_field :settings, :url, :size=>50%> <%=l(:notice_hudson_url)%>
+    </p>
+    <p>
+       <label>
+         <%=l(:field_user)%>
+       </label>
+       <%=text_field :settings, :auth_user, :size=>20 %>
+    </p>
+    <p>
+       <label>
+         <%=l(:field_password)%>
+       </label>
+       <%=password_field :settings, :auth_password, :size=>20%>
+    </p>
+    <p>
+       <label>
+         <%=l(:label_get_build_details)%>
+       </label>
+       <%=check_box :settings, :get_build_details, {}, 'true'%>
+       <%=l(:notice_get_build_details)%>
+    </p>
+    <p>
+       <label>
+         <%=l(:label_show_compact)%>
+       </label>
+       <%=check_box :settings, :show_compact, {}, 'true'%>
+    </p>
+    <p>
+       <label>
+         <%=l(:label_look_and_feel)%>
+       </label>
+       <%=radio_button :settings, :look_and_feel, 'Hudson'%>
+       <%=l(:label_look_and_feel_hudson)%>
+       <br/>
+       <%=radio_button :settings,:look_and_feel,  'Plugin'%>
+       <%=l(:label_look_and_feel_plugin)%>
+    </p>
+  </div>
 
-<h3><%=l(:label_jobs)%></h3>
-
+  <h3><%=l(:label_jobs)%></h3>
   <%=render :partial => 'joblist'%>
 
-<p><%= submit_tag l(:button_save) %></p>
+  <p>
+    <%= submit_tag l(:button_save) %>
+  </p>
 <% end %>
 
 <h2 style="margin-top:20px;"><%=l(:label_database)%></h2>
@@ -37,12 +61,6 @@
 <% form_tag({:action => 'delete_history', :id => @project}) do %>
   <%= submit_tag l(:button_delete_history) %>
 <% end %>
-
-<style type="text/css">
-<!--
-.health_report_explain { font-weight:bold;}
--->
-</style>
 
 <% content_for :header_tags do %>
   <%= stylesheet_link_tag "hudson.css", :plugin => "redmine_hudson", :media => "screen" %>

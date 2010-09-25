@@ -50,8 +50,6 @@ class HudsonSettingsController < ApplicationController
 
   def joblist
     begin
-      # この find は、外部のサーバ(Hudson)にアクセスするので、before_filter には入れない
-      # ジョブの一覧を取得するためだけなので、設定に一時値は反映するけれど、保存はしない
       @hudson.settings = HudsonSettings.new unless @hudson.settings
       @hudson.settings.url = HudsonSettings.add_last_slash_to_url(params[:url])
 

@@ -1,5 +1,3 @@
-# $Id$
-
 require File.dirname(__FILE__) + '/../test_helper'
 
 class HudsonBuildRotatorTest < ActiveSupport::TestCase
@@ -8,14 +6,11 @@ class HudsonBuildRotatorTest < ActiveSupport::TestCase
   set_fixture_class :hudson_job_settings => HudsonJobSettings
 
   def test_initialize_should_raise_exception
-
     assert_raise(ArgumentError){HudsonBuildRotator.new(nil)}
     assert_raise(ArgumentError){HudsonBuildRotator.new(Hudson.new)}
-
   end
 
   def test_execute_both
-
     data_job = hudson_jobs(:simple_ruby_application)
     job = HudsonJob.find(data_job.id, :include => HudsonJobSettings)
 
@@ -43,7 +38,6 @@ class HudsonBuildRotatorTest < ActiveSupport::TestCase
   end
 
   def test_execute_enable_num_to_keep
-
     data_job = hudson_jobs(:have_white_space)
     job = HudsonJob.find(data_job.id, :include => HudsonJobSettings)
 
@@ -67,11 +61,9 @@ class HudsonBuildRotatorTest < ActiveSupport::TestCase
       count += 1 if build.number.to_i >= 16
     end
     assert_equal 15, count
-
   end
 
   def test_execute_enable_days_to_keep
-
     data_job = hudson_jobs(:maven_application)
     job = HudsonJob.find(data_job.id, :include => HudsonJobSettings)
 
@@ -123,7 +115,6 @@ class HudsonBuildRotatorTest < ActiveSupport::TestCase
   end
 
   def test_self_can_store_should_return_true
-
     data_job = hudson_jobs(:simple_ruby_application)
     job = HudsonJob.find(data_job.id, :include => HudsonJobSettings)
 
@@ -139,19 +130,17 @@ class HudsonBuildRotatorTest < ActiveSupport::TestCase
 
     assert_equal true, HudsonBuildRotator.can_store?(job, 31)
     assert_equal true, HudsonBuildRotator.can_store?(job, "31")
-
   end
 
   def create_build(job_id, finished_at, number_list)
-      number_list.each do |number|
-        build = HudsonBuild.new
-        build.hudson_job_id = job_id
-        build.number = number
-        build.result = "SUCCESS"
-        build.building = false
-        build.finished_at = finished_at + Rational(1, 24 * 60 * 60) * number
-        build.save!
-      end
+    number_list.each do |number|
+      build = HudsonBuild.new
+      build.hudson_job_id = job_id
+      build.number = number
+      build.result = "SUCCESS"
+      build.building = false
+      build.finished_at = finished_at + Rational(1, 24 * 60 * 60) * number
+      build.save!
+    end
   end
-
 end
