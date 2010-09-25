@@ -1,7 +1,3 @@
-# $Id$
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
-
 require "rexml/document"
 require 'cgi'
 require 'hudson_exceptions'

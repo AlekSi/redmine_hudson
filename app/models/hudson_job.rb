@@ -180,7 +180,6 @@ private
   end
 
   def fetch_detail
-
     api_url = "#{api_url_for(:plugin)}/xml/?depth=1"
     api_url << "&exclude=//build/changeSet/item/path"
     api_url << "&exclude=//build/changeSet/item/addedPath"
@@ -223,15 +222,11 @@ private
       build.update_by_api(buildelem)
       build.save
 
-      # チェンジセットを取得する
       build.add_changesets_from_xml buildelem if self.project.repository != nil
 
-      # テスト結果を取得する
       build.add_testresult_from_xml buildelem
 
-      # 成果物を取得する
       build.add_artifact_from_xml buildelem
-
     end
 
   end
@@ -261,7 +256,6 @@ private
     retval.hudson_job_id = self.id
     return retval
   end
-
 end
 
 class HudsonNoJob
@@ -283,7 +277,6 @@ class HudsonNoJob
 
     @settings = args[:settings]
     @name = args[:name]
-
   end
 
   def url_for(type = :user)
@@ -291,6 +284,4 @@ class HudsonNoJob
     return "" unless (self.name && self.name.length > 0)
     return "#{self.settings.url_for(type)}job/#{self.name}"
   end
-
 end
-

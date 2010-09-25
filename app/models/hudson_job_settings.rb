@@ -5,7 +5,6 @@ class HudsonJobSettings < ActiveRecord::Base
 
   belongs_to :job, :class_name => 'HudsonJob', :foreign_key => 'hudson_job_id'
 
-  # 空白を許さないもの
   validates_presence_of :hudson_job_id
 
   include RexmlHelper
@@ -25,7 +24,6 @@ class HudsonJobSettings < ActiveRecord::Base
   end
 
   def fetch
-
     return unless self.job
     return unless self.job.settings
 
@@ -35,7 +33,6 @@ class HudsonJobSettings < ActiveRecord::Base
     doc = REXML::Document.new content
 
     self.update_by_xml(doc)
-
   end
 
   def update_by_xml(doc)
@@ -54,7 +51,5 @@ class HudsonJobSettings < ActiveRecord::Base
     self.build_rotate = rotate
     self.build_rotator_days_to_keep = days_to_keep.to_i if days_to_keep =~ /^[+-]?\d+$/
     self.build_rotator_num_to_keep = num_to_keep.to_i if num_to_keep =~ /^[+-]?\d+$/
-
   end
-
 end
