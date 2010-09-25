@@ -23,7 +23,7 @@ Redmine::Plugin.register :redmine_hudson do
 
   menu :project_menu, :hudson, { :controller => :hudson, :action => :index }, :param => :id, :caption => :label_hudson
 
-  activity_provider :hudson, :class_name => 'HudsonBuild', :default => false
+  activity_provider :hudson, :class_name => 'HudsonBuild', :default => true
 
   settings(:default => {
              'autofetch' => "true",
