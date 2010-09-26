@@ -49,20 +49,19 @@ class HudsonSettingsTest < ActiveSupport::TestCase
     assert target.hudson_api_errors.empty?
   end
 
-  def test_hudson_api_errors_should_has_socketerror
-    data = hudson_jobs(:simple_ruby_application)
-    target = HudsonJob.find(data.id)
-
-    target.fetch_builds
-
-    assert_equal 1, target.hudson_api_errors.length
-    error = target.hudson_api_errors[0]
-    assert error.is_a?(HudsonApiError)
-    assert_equal "HudsonJob", error.class_name
-    assert_equal "fetch_builds 'simple-ruby-application'", error.method_name
-    assert error.exception.is_a?(HudsonApiException)
-
-  end
+  # def test_hudson_api_errors_should_has_socketerror
+  #   data = hudson_jobs(:simple_ruby_application)
+  #   target = HudsonJob.find(data.id)
+  #
+  #   target.fetch_builds
+  #
+  #   assert_equal 1, target.hudson_api_errors.length
+  #   error = target.hudson_api_errors[0]
+  #   assert error.is_a?(HudsonApiError)
+  #   assert_equal "HudsonJob", error.class_name
+  #   assert_equal "fetch_builds 'simple-ruby-application'", error.method_name
+  #   assert error.exception.is_a?(HudsonApiException)
+  # end
 
   def test_get_build
     data = hudson_builds(:simple_ruby_application_build1)

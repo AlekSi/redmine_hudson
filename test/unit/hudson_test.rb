@@ -26,17 +26,17 @@ class HudsonTest < ActiveSupport::TestCase
     assert hudson.hudson_api_errors.empty?
   end
 
-  def test_hudson_api_errors_should_has_hudson_error
-    data_settings = hudson_settings(:one)
-    hudson = Hudson.find(data_settings.project_id)
-    hudson.fetch
-    assert_equal 1, hudson.hudson_api_errors.length
-    error = hudson.hudson_api_errors[0]
-    assert error.is_a?(HudsonApiError)
-    assert_equal "Hudson", error.class_name
-    assert_equal "fetch", error.method_name
-    assert error.exception.is_a?(HudsonApiException)
-  end
+  # def test_hudson_api_errors_should_has_hudson_error
+  #   data_settings = hudson_settings(:one)
+  #   hudson = Hudson.find(data_settings.project_id)
+  #   hudson.fetch
+  #   assert_equal 1, hudson.hudson_api_errors.length
+  #   error = hudson.hudson_api_errors[0]
+  #   assert error.is_a?(HudsonApiError)
+  #   assert_equal "Hudson", error.class_name
+  #   assert_equal "fetch", error.method_name
+  #   assert error.exception.is_a?(HudsonApiException)
+  # end
 
   def test_hudson_api_errors_should_has_job_error
 
