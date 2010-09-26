@@ -9,11 +9,8 @@ class HudsonBuildRotator
 
   def execute
     return unless @job_settings.do_rotate?
-
     HudsonBuild.destroy_all(HudsonBuildRotator.create_cond_to_delete(@job_settings))
-
   end
-
 end
 
 def HudsonBuildRotator.can_store?(job, number)

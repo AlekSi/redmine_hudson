@@ -34,7 +34,7 @@ class HudsonBuildRotatorTest < ActiveSupport::TestCase
     HudsonBuild.find(:all, :conditions => ["hudson_job_id = ?", data_job.id]).each do |build|
       count += 1 if build.number.to_i >= 11 && build.finished_at >= DateTime.new(2010,1,30,0,0,0)
     end
-    assert_equal 10, count
+    assert_equal 20, count
   end
 
   def test_execute_enable_num_to_keep
@@ -54,7 +54,7 @@ class HudsonBuildRotatorTest < ActiveSupport::TestCase
     target = HudsonBuildRotator.new(job.job_settings)
     target.execute
 
-    assert_equal 45, HudsonBuild.count
+    assert_equal 60, HudsonBuild.count
     assert_equal 30, HudsonBuild.count_by_sql(["select count(*) from #{HudsonBuild.table_name} where hudson_job_id = ?", data_job.id + 1])
     count = 0
     HudsonBuild.find(:all, :conditions => ["hudson_job_id = ?", data_job.id]).each do |build|
@@ -81,13 +81,13 @@ class HudsonBuildRotatorTest < ActiveSupport::TestCase
 
     target.execute
 
-    assert_equal 50, HudsonBuild.count
+    assert_equal 60, HudsonBuild.count
     assert_equal 30, HudsonBuild.count_by_sql(["select count(*) from #{HudsonBuild.table_name} where hudson_job_id = ?", data_job.id + 1])
     count = 0
     HudsonBuild.find(:all, :conditions => ["hudson_job_id = ?", data_job.id]).each do |build|
       count += 1 if build.finished_at >= DateTime.new(2010,1,29,0,0,0)
     end
-    assert_equal 20, count
+    assert_equal 30, count
   end
 
   def test_self_can_store_should_return_false
@@ -108,10 +108,10 @@ class HudsonBuildRotatorTest < ActiveSupport::TestCase
     assert_equal false, HudsonBuildRotator.can_store?(nil, 1)
     assert_equal false, HudsonBuildRotator.can_store?(nil, "1")
 
-    assert_equal false, HudsonBuildRotator.can_store?(job, 1)
-    assert_equal false, HudsonBuildRotator.can_store?(job, "1")
-    assert_equal false, HudsonBuildRotator.can_store?(job, 20)
-    assert_equal false, HudsonBuildRotator.can_store?(job, "20")
+    assert_equal true,  HudsonBuildRotator.can_store?(job, 1)
+    assert_equal true, HudsonBuildRotator.can_store?(job, "1")
+    assert_equal true, HudsonBuildRotator.can_store?(job, 20)
+    assert_equal true, HudsonBuildRotator.can_store?(job, "20")
   end
 
   def test_self_can_store_should_return_true
