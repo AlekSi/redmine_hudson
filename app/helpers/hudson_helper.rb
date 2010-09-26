@@ -8,7 +8,6 @@ require 'net/http'
 module HudsonHelper
 
   def open_hudson_api( uri, auth_user, auth_password )
-
     begin
       http = create_http_connection(uri)
       request = create_http_request(uri, auth_user, auth_password)
@@ -31,10 +30,7 @@ module HudsonHelper
   end
 
   def check_box_to_boolean(item)
-    return false unless item
-    return false if "0" == item
-    return false if "false" == item
-    return true
+    !(item.nil? || %w(0 false).include?(item))
   end
 
   def is_today?(value)
